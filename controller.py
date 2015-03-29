@@ -151,13 +151,17 @@ class Controller(object):
         root.putChild('cfg', ConfigHandler(self))
 
         clk = ClickHandler(self)
-        args={self.config['site']['username']:self.config['site']['password']}
-        checker = checkers.InMemoryUsernamePasswordDatabaseDontUse(**args)
-        realm = HttpPasswordRealm(clk)
-        p = portal.Portal(realm, [checker])
-        credentialFactory = BasicCredentialFactory("Garage Door Controller")
-        protected_resource = HTTPAuthSessionWrapper(p, [credentialFactory])
-        root.putChild('clk', protected_resource)
+	web_auth = self.config['options']["auth"]
+	if web_auth == 'True':
+            args={self.config['site']['username']:self.config['site']['password']}
+            checker = checkers.InMemoryUsernamePasswordDatabaseDontUse(**args)
+            realm = HttpPasswordRealm(clk)
+            p = portal.Portal(realm, [checker])
+            credentialFactory = BasicCredentialFactory("Garage Door Controller")
+            protected_resource = HTTPAuthSessionWrapper(p, [credentialFactory])
+            root.putChild('clk', protected_resource)
+	else:
+            root.putChild('clk', ClickHandler(self))
 
         site = server.Site(root)
         reactor.listenTCP(self.config['site']['port'], site)  # @UndefinedVariable
