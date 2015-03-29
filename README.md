@@ -82,17 +82,36 @@ Software Installation:
     `sudo apt-get install subversion`
 
     `svn co https://github.com/andrewshilliday/garage-door-controller/trunk ~pi/garage-door-controller`
+
+ You can also obtain via git with:
+
+    `git clone https://github.com/andrewshilliday/garage-door-controller.git`
+
+    To get any new changes to the code just `cd garage-door-controller; git pull`
     
     That's it; you don't need to build anything.
 
 5.  **Edit `config.json`**
-    
-    You'll need one configuration entry for each garage door.  The settings are fairly obvious, but are defined as follows:
-    - **name**: The name for the garage door as it will appear on the controller app.
-    - **relay_pin**: The GPIO pin connecting the RPi to the relay for that door.
-    - **state_pin**: The GPIO pin conneting to the contact switch.
-    - **approx_time_to_close**: How long the garage door typically takes to close.
-    - **approx_time_to_open**: How long the garage door typically takes to open.
+   
+    **options**
+	`auth` : Set to 'True' if you'd like to use the web authentication feature. Set to 'False' to disable web authentication.
+
+    **smtp**
+	Most of these are self explanatory.
+	`time_to_wait` : Value in seconds, after which a message will be sent stating the garage door was left open.
+
+    **site**
+	`port` : The port the web application will be available on.
+	`username` : Username to use for web authentication.  (Ignored if auth is set to 'False') 
+	`password` : Password to use for web authentication.  (Ignored if auth is set to 'False')
+
+    **doors**
+        You'll need one configuration entry for each garage door.  The settings are fairly obvious, but are defined as follows:
+    	`name` : name for the garage door as it will appear on the controller app.
+    	`relay_pin` : The GPIO pin connecting the RPi to the relay for that door.
+    	`state_pin` : The GPIO pin conneting to the contact switch.
+    	`approx_time_to_close` : How long the garage door typically takes to close.
+    	`approx_time_to_open` : How long the garage door typically takes to open.
 
     The **approx_time_to_XXX** options are not particularly crucial.  They tell the program when to shift from the opening or closing state to the "open" or "closed" state.  You don't need to be out there with a stopwatch and you wont break anything if they are off.  In the worst case, you may end up with a slightly odd behavior when closing the garage door whereby it goes from "closing" to "open" (briefly) and then to "closed" when the sensor detects that the door is actually closed.
 
