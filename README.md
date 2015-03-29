@@ -109,6 +109,7 @@ Software Installation:
     **doors**
 
         You'll need one configuration entry for each garage door.  The settings are fairly obvious, but are defined as follows:
+
     	- `name` : name for the garage door as it will appear on the controller app.
     	- `relay_pin` : The GPIO pin connecting the RPi to the relay for that door.
     	- `state_pin` : The GPIO pin conneting to the contact switch.
