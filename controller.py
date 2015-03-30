@@ -150,9 +150,9 @@ class Controller(object):
         root.putChild('upd', self.updateHandler)
         root.putChild('cfg', ConfigHandler(self))
 
-        clk = ClickHandler(self)
 	web_auth = self.config['options']["auth"]
 	if web_auth == 'True':
+            clk = ClickHandler(self)
             args={self.config['site']['username']:self.config['site']['password']}
             checker = checkers.InMemoryUsernamePasswordDatabaseDontUse(**args)
             realm = HttpPasswordRealm(clk)

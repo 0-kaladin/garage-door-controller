@@ -1,5 +1,9 @@
 var lastupdate = 0;
 
+(function ($) {
+   $(document);
+}(jQuery));
+
 function formatState(state, time)
 {   
 	dateStr = dateFormat(new Date(parseInt(time)*1000), "mmm dS, yyyy, h:MM TT");
@@ -62,5 +66,5 @@ function poll(){
     	});
 };
 
-$(document).live('pageinit', poll);
+$(document).on('pageinit', poll);
    
