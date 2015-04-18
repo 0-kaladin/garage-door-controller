@@ -33,7 +33,7 @@ DESC="Garage Door Controller"
 NAME=controller.py
 DAEMON=/usr/bin/python
 DAEMON_ARGS="controller.py"
-HOMEDIR=/home/pi/garagedoorcontroller2/ # Edit if different on your Raspberry Pi
+HOMEDIR=/home/pi/garage-door-controller2/ # Edit if different on your Raspberry Pi
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
