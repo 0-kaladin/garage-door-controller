@@ -1,4 +1,4 @@
-[Garage Door Controller](https://github.com/andrewshilliday/garage-door-controller)
+[Garage Door Controller](https://github.com/0-kaladin/garage-door-controller2)
 ======================
 
 Monitor and control your garage doors from the web via a Raspberry Pi.
@@ -77,17 +77,11 @@ Software Installation:
     
 4. **Install the controller application**
         
-    I just install it to ~/pi/garage-door-controller.  You can install it anywhere you want but make sure to adapt these instructions accordingly. You can obtain the code via SVN by executing the following:
+    I just install it to ~/pi/garage-door-controller2.  You can install it anywhere you want but make sure to adapt these instructions accordingly. You can obtain the code via git by executing the following:
     
-    `sudo apt-get install subversion`
+    `git clone https://github.com/0-kaladin/garage-door-controller2.git`
 
-    `svn co https://github.com/andrewshilliday/garage-door-controller/trunk ~pi/garage-door-controller`
-
- You can also obtain via git with:
-
-    `git clone https://github.com/andrewshilliday/garage-door-controller.git`
-
-    To get any new changes to the code just `cd garage-door-controller; git pull`
+    To get any new changes to the code just `cd garage-door-controller2; git pull`
     
     That's it; you don't need to build anything.
 
@@ -118,11 +112,18 @@ Software Installation:
     The **approx_time_to_XXX** options are not particularly crucial.  They tell the program when to shift from the opening or closing state to the "open" or "closed" state.  You don't need to be out there with a stopwatch and you wont break anything if they are off.  In the worst case, you may end up with a slightly odd behavior when closing the garage door whereby it goes from "closing" to "open" (briefly) and then to "closed" when the sensor detects that the door is actually closed.
 
         
-6.  **Set to launch at startup**
+6.  **Control with init script**
 
-    Simply add the following line to your /etc/rc.local file, just above the call to `exit 0`:
-    
-    `(cd ~pi/garage-door-controller; python controller.py)&`
+    Configure the included init script.
+    `sudo cp ~pi/garage-door-controller2/controller.sh /etc/init.d/controller`
+    `sudo chmod +x /etc/init.d/controller`
+    `sudo update-rc.d controller defaults`
+
+    This will now enable you to stop/start/restart the controller as a normal program with
+    `/etc/init.d/controller start` for example.
+    It will also have it run at system startup and shutdown with the system.
+
+    You can check if it is running with `/etc/init.d/controller status`
     
 7. **Using the Controller Web Service**
 The garage door controller application runs directly from the Raspberry Pi as a web service running on port 8080.  It can be used by directing a web browser (on a PC or mobile device) to http://[hostname-or-ip-address]:8080/.  If you want to connect to the raspberry pi from outside your home network, you will need to establish port forwarding in your cable modem.  

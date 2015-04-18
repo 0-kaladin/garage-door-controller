@@ -1,3 +1,6 @@
+# !/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """Software to monitor and control garage doors via a raspberry pi."""
 
 import time, syslog, json
