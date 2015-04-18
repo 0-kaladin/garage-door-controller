@@ -20,7 +20,7 @@
 # update-rc.d controller remove
 #
 
-# Author: Kaladin Light <0-kaladin at gmail.com>
+# Author: Kaladin Light <0.kaladin at gmail.com>
 #
 # Please remove the "Author" lines above and replace them
 # with your own name if you copy and modify this script.
