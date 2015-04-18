@@ -114,13 +114,13 @@ Software Installation:
         
 6.  **Control with init script**
 
-    Configure the included init script.
-    `sudo cp ~pi/garage-door-controller2/controller.sh /etc/init.d/controller`
-    `sudo chmod +x /etc/init.d/controller`
-    `sudo update-rc.d controller defaults`
+    Configure the included init script.<br/>
+    `sudo cp ~pi/garage-door-controller2/controller.sh /etc/init.d/controller`<br/>
+    `sudo chmod +x /etc/init.d/controller`<br/>
+    `sudo update-rc.d controller defaults`<br/>
 
     This will now enable you to stop/start/restart the controller as a normal program with
-    `/etc/init.d/controller start` for example.
+    `/etc/init.d/controller start` for example.<br/>
     It will also have it run at system startup and shutdown with the system.
 
     You can check if it is running with `/etc/init.d/controller status`
