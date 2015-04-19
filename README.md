@@ -105,7 +105,8 @@ Software Installation:
 	You'll need one configuration entry for each garage door.  The settings are fairly obvious, but are defined as follows:
 	- `name` : name for the garage door as it will appear on the controller app.
 	- `relay_pin` : The GPIO pin connecting the RPi to the relay for that door.
-	- `state_pin` : The GPIO pin conneting to the contact switch.
+	- `use_state` : Set to False to ignore the state_pin if you have not wired up any tracking of door state.
+	- `state_pin` : The GPIO pin conneting to the contact switch. (Be sure the use_state value above is True)
 	- `approx_time_to_close` : How long the garage door typically takes to close.
 	- `approx_time_to_open` : How long the garage door typically takes to open.
 
