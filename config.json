@@ -1,7 +1,7 @@
 {
    "options":{
-      "auth":"False"
-      "contact_switch":"False"
+      "auth":"False",
+      "contact_switch":"False",
       "limit_switch":"False"
    },
    "smtp":{
