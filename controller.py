@@ -40,6 +40,7 @@ class Door(object):
         self.name = config['name']
         self.relay_pin = config['relay_pin']
         self.state_pin = config['state_pin']
+        self.use_state = config['use_state']
         self.time_to_close = config.get('time_to_close', 10)
         self.time_to_open = config.get('time_to_open', 10)
         gpio.setup(self.relay_pin, gpio.OUT)
@@ -47,24 +48,22 @@ class Door(object):
         gpio.output(self.relay_pin, True)
 
     def get_state(self):
-        cswitch = self.config['options']["contact_switch"]
-        if cswitch == 'True':
-            if gpio.input(self.state_pin) == 0:
-                return 'closed'
-            elif self.last_action == 'open':
-                if time.time() - self.last_action_time >= self.time_to_open:
-                    return 'open'
-                else:
-                    return 'opening'
-            elif self.last_action ==  'close':
-                if time.time() - self.last_action_time >= self.time_to_close:
-                    return 'open' # This state indicates a problem
-                else:
-                    return 'closing'
-            else:
-                return 'open'
-        else:
+        if self.use_state == 'False':
             return 'unknown'
+        if gpio.input(self.state_pin) == 0:
+            return 'closed'
+        elif self.last_action == 'open':
+            if time.time() - self.last_action_time >= self.time_to_open:
+                return 'open'
+            else:
+                return 'opening'
+        elif self.last_action ==  'close':
+            if time.time() - self.last_action_time >= self.time_to_close:
+                return 'open' # This state indicates a problem
+            else:
+                return 'closing'
+        else:
+            return 'open'
 
     def toggle_relay(self):
         state = self.get_state()

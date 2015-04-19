@@ -22,6 +22,7 @@
       "left":{
          "name":"Andrew",
          "relay_pin":23,
+         "use_state":"False",
          "state_pin":17,
          "approx_time_to_close":10,
          "approx_time_to_open":13
@@ -29,6 +30,7 @@
       "right":{
          "name":"Nicole",
          "relay_pin":24,
+         "use_state":"False",
          "state_pin":27,
          "approx_time_to_close":10,
          "approx_time_to_open":13
