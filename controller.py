@@ -47,20 +47,24 @@ class Door(object):
         gpio.output(self.relay_pin, True)
 
     def get_state(self):
-        if gpio.input(self.state_pin) == 0:
-            return 'closed'
-        elif self.last_action == 'open':
-            if time.time() - self.last_action_time >= self.time_to_open:
+        cswitch = self.config['options']["contact_switch"]
+        if cswitch == 'True':
+            if gpio.input(self.state_pin) == 0:
+                return 'closed'
+            elif self.last_action == 'open':
+                if time.time() - self.last_action_time >= self.time_to_open:
+                    return 'open'
+                else:
+                    return 'opening'
+            elif self.last_action ==  'close':
+                if time.time() - self.last_action_time >= self.time_to_close:
+                    return 'open' # This state indicates a problem
+                else:
+                    return 'closing'
+            else:
                 return 'open'
-            else:
-                return 'opening'
-        elif self.last_action ==  'close':
-            if time.time() - self.last_action_time >= self.time_to_close:
-                return 'open' # This state indicates a problem
-            else:
-                return 'closing'
         else:
-            return 'open'
+            return 'unknown'
 
     def toggle_relay(self):
         state = self.get_state()
@@ -69,6 +73,9 @@ class Door(object):
             self.last_action_time = time.time()
         elif state == 'closed':
             self.last_action = 'open'
+            self.last_action_time = time.time()
+        elif state == 'unknown':
+            self.last_action = None
             self.last_action_time = time.time()
         else:
             self.last_action = None
@@ -108,7 +115,9 @@ class Controller(object):
                 door.last_state = new_state
                 door.last_state_time = time.time()
                 self.updateHandler.handle_updates()
-            if not new_state == 'closed':
+            if new_state == 'unknown':
+                open_doors = False
+            elif not new_state == 'closed':
                 open_doors = True
 
         if self.use_smtp:

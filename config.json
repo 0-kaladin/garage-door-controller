@@ -1,6 +1,8 @@
 {
    "options":{
       "auth":"False"
+      "contact_switch":"False"
+      "limit_switch":"False"
    },
    "smtp":{
       "smtphost":"<SMTP HOST>",
