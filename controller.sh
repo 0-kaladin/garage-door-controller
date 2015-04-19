@@ -37,6 +37,11 @@ HOMEDIR=/home/pi/garage-door-controller2/ # Edit if different on your Raspberry 
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
+if [ "$EUID" != 0 ]; then
+  echo "This init script must be run as root!" 1>&2
+  exit 1
+fi
+
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
 
